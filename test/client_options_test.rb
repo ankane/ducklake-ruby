@@ -71,8 +71,8 @@ class ClientOptionsTest < Minitest::Test
     assert_equal 3, client.sql("SELECT * FROM events").count
 
     # can still create external files if disable_external_access is not set
-    client.sql("COPY events TO '/tmp/data.csv'")
-    assert File.exist?("/tmp/data.csv")
+    client.sql("COPY events TO #{client.quote("#{tmpdir}/data.csv")}")
+    assert File.exist?("#{tmpdir}/data.csv")
   end
 
   def test_snapshot_version
@@ -97,7 +97,7 @@ class ClientOptionsTest < Minitest::Test
 
   def test_create_if_not_exists
     error = assert_raises(DuckLake::InvalidInputError) do
-      new_client(catalog_url: "sqlite:////tmp/empty.sqlite")
+      new_client(catalog_url: "sqlite:///#{tmpdir}/empty.sqlite")
     end
     assert_match "creating a new DuckLake is explicitly disabled", error.message
   end

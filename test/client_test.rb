@@ -262,7 +262,7 @@ class ClientTest < Minitest::Test
     assert_nil client.disable_external_access
 
     error = assert_raises(DuckLake::PermissionError) do
-      client.sql("ATTACH '/tmp/test.duckdb'")
+      client.sql("ATTACH #{client.quote("#{tmpdir}/test.duckdb")}")
     end
     assert_match "file system operations are disabled by configuration", error.message
   end
@@ -274,7 +274,7 @@ class ClientTest < Minitest::Test
     assert_equal 3, client.sql("SELECT * FROM events").count
 
     error = assert_raises(DuckLake::PermissionError) do
-      client.sql("ATTACH '/tmp/test.duckdb'")
+      client.sql("ATTACH #{client.quote("#{tmpdir}/test.duckdb")}")
     end
     assert_match "file system operations are disabled by configuration", error.message
   end
@@ -306,10 +306,10 @@ class ClientTest < Minitest::Test
   end
 
   def test_different_storage_url
-    client = new_client(storage_url: "/tmp/ducklake")
+    client = new_client(storage_url: "#{tmpdir}/ducklake")
     create_events(client)
 
-    client2 = new_client(storage_url: "/tmp/ducklake2")
+    client2 = new_client(storage_url: "#{tmpdir}/ducklake2")
     load_events(client2)
 
     error = assert_raises(DuckLake::IOError) do

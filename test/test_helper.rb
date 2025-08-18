@@ -17,7 +17,7 @@ class Minitest::Test
   end
 
   def storage_url
-    @@storage_url ||= ENV["STORAGE_URL"] || "/tmp/ducklake"
+    @@storage_url ||= ENV["STORAGE_URL"] || "#{tmpdir}/data_files"
   end
 
   def catalog_url
