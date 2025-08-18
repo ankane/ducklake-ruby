@@ -247,13 +247,13 @@ Use read-only credentials for catalog database and storage provider and [disable
 
 You should also consider [disabling community extensions](https://duckdb.org/docs/stable/operations_manual/securing_duckdb/securing_extensions.html#community-extensions)
 
-```sql
+```ruby
 ducklake.sql("SET allow_community_extensions = false")
 ```
 
 And [locking the configuration](https://duckdb.org/docs/stable/operations_manual/securing_duckdb/overview.html#locking-configurations)
 
-```sql
+```ruby
 ducklake.sql("SET lock_configuration = true")
 ```
 
