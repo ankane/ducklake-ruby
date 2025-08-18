@@ -235,9 +235,9 @@ ducklake.set_option("parquet_compression", "zstd", table_name: "events")
 
 ## Security
 
-See [best practices](https://duckdb.org/docs/stable/operations_manual/securing_duckdb/overview.html) for DuckDB security.
+See [best practices](https://duckdb.org/docs/stable/operations_manual/securing_duckdb/overview.html) for DuckDB security
 
-Grant minimal permissions for the catalog database and data storage.
+Grant minimal permissions for the catalog database and storage provider
 
 ### External Access
 
