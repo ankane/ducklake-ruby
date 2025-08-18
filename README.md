@@ -258,6 +258,22 @@ ducklake.disable_external_access(
 
 The storage URL is automatically included in `allowed_directories`
 
+### SQL Safety
+
+Use parameterized queries when possible
+
+```ruby
+ducklake.sql("SELECT * FROM events WHERE id = ?", [1])
+```
+
+For places that do not support parameters, use `quote` or `quote_identifier`
+
+```ruby
+quoted_table = ducklake.quote_identifier("events")
+quoted_file = ducklake.quote("path/to/data.csv")
+ducklake.sql("COPY #{quoted_table} FROM #{quoted_file}")
+```
+
 ## Reference
 
 Get table info
