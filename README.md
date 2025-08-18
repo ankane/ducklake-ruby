@@ -149,7 +149,7 @@ Or [register existing data files](https://ducklake.select/docs/stable/duckdb/met
 ducklake.add_data_files("events", "data.parquet")
 ```
 
-Note: This transfers ownership to the data lake, so the file can be deleted after running `cleanup_old_files`
+Note: This transfers ownership to the data lake, so the file may be deleted as part of [maintenance](#maintenance)
 
 Update data
 
