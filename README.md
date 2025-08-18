@@ -233,13 +233,31 @@ Or for a specific table
 ducklake.set_option("parquet_compression", "zstd", table_name: "events")
 ```
 
-## Security
+## Read-Only Mode
 
-See [best practices](https://duckdb.org/docs/stable/operations_manual/securing_duckdb/overview.html) for DuckDB security
+Note: This feature is experimental
 
-Grant minimal permissions for the catalog database and storage provider
+Connect to the data lake in read-only mode
 
-### External Access
+```ruby
+DuckLake::Client.new(_read_only: true, ...)
+```
+
+Use read-only credentials for catalog database and storage provider and [disable external access](#external-access)
+
+You should also consider [disabling community extensions](https://duckdb.org/docs/stable/operations_manual/securing_duckdb/securing_extensions.html#community-extensions)
+
+```sql
+ducklake.sql("SET allow_community_extensions = false")
+```
+
+And [locking the configuration](https://duckdb.org/docs/stable/operations_manual/securing_duckdb/overview.html#locking-configurations)
+
+```sql
+ducklake.sql("SET lock_configuration = true")
+```
+
+## External Access
 
 [Restrict external access](https://duckdb.org/docs/stable/operations_manual/securing_duckdb/overview.html#restricting-file-access) to the DuckDB engine
 
@@ -258,7 +276,7 @@ ducklake.disable_external_access(
 
 The storage URL is automatically included in `allowed_directories`
 
-### SQL Safety
+## SQL Safety
 
 Use parameterized queries when possible
 
