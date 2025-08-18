@@ -6,7 +6,7 @@ Run your own data lake with a SQL database and file/object storage
 
 ```ruby
 DuckLake::Client.new(
-  catalog_url: "postgres://user:pass@host:5432/db",
+  catalog_url: "postgres://user:pass@host:5432/dbname",
   storage_url: "s3://my-bucket/"
 )
 ```
