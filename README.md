@@ -1,6 +1,6 @@
 # DuckLake Ruby
 
-:fire: [DuckLake](https://ducklake.select/) for Ruby
+:duck: [DuckLake](https://ducklake.select/) for Ruby
 
 Run your own data lake with a SQL database and file/object storage
 
