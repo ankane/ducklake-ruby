@@ -299,15 +299,18 @@ module DuckLake
       ]
 
       storage_options = {}
+      extra_options = @storage_options.dup
+
       case @storage_scheme
       when "s3"
         # https://docs.rs/object_store/latest/object_store/aws/enum.AmazonS3ConfigKey.html
-        storage_options =
-          @storage_options.slice(
-            :aws_access_key_id,
-            :aws_secret_access_key,
-            :region
-          )
+        [:aws_access_key_id, :aws_secret_access_key, :region].each do |k|
+          storage_options[k] = extra_options.delete(k)
+        end
+      end
+
+      if extra_options.any?
+        raise ArgumentError, "Unsupported #{@storage_scheme || "file"} storage options: #{extra_options.keys.map(&:inspect).join(", ")}"
       end
 
       Polars.scan_parquet(sources, _deletion_files: deletion_files, storage_options: storage_options)
