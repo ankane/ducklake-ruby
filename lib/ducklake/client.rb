@@ -436,7 +436,7 @@ module DuckLake
         when "s3"
           # https://docs.rs/object_store/latest/object_store/aws/enum.AmazonS3ConfigKey.html
           [:aws_access_key_id, :aws_secret_access_key, :region].each do |k|
-            storage_options[k] = extra_options.delete(k)
+            storage_options[k] = extra_options.delete(k) if extra_options.key?(k)
           end
         end
 
