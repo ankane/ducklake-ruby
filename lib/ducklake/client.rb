@@ -297,23 +297,7 @@ module DuckLake
         "iceberg-position-delete",
         files.map.with_index.select { |v, i| v[:delete_file] }.to_h { |v, i| [i, [v[:delete_file]]] }
       ]
-
-      storage_options = {}
-      extra_options = @storage_options.dup
-
-      case @storage_scheme
-      when "s3"
-        # https://docs.rs/object_store/latest/object_store/aws/enum.AmazonS3ConfigKey.html
-        [:aws_access_key_id, :aws_secret_access_key, :region].each do |k|
-          storage_options[k] = extra_options.delete(k)
-        end
-      end
-
-      if extra_options.any?
-        raise ArgumentError, "Unsupported #{@storage_scheme || "file"} storage options: #{extra_options.keys.map(&:inspect).join(", ")}"
-      end
-
-      Polars.scan_parquet(sources, _deletion_files: deletion_files, storage_options: storage_options)
+      Polars.scan_parquet(sources, _deletion_files: deletion_files, storage_options: polars_storage_options)
     end
 
     # libduckdb does not provide function
@@ -441,6 +425,27 @@ module DuckLake
       end
 
       uri.path[1..]
+    end
+
+    def polars_storage_options
+      @polars_storage_options ||= begin
+        storage_options = {}
+        extra_options = @storage_options.dup
+
+        case @storage_scheme
+        when "s3"
+          # https://docs.rs/object_store/latest/object_store/aws/enum.AmazonS3ConfigKey.html
+          [:aws_access_key_id, :aws_secret_access_key, :region].each do |k|
+            storage_options[k] = extra_options.delete(k)
+          end
+        end
+
+        if extra_options.any?
+          raise ArgumentError, "Unsupported #{@storage_scheme || "file"} storage options: #{extra_options.keys.map(&:inspect).join(", ")}"
+        end
+
+        storage_options
+      end
     end
 
     def quote_array(value)
