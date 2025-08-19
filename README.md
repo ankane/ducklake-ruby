@@ -235,7 +235,7 @@ ducklake.set_option("parquet_compression", "zstd", table_name: "events")
 
 ## Read-Only Mode
 
-Note: This feature is experimental
+Note: This feature is experimental and does not prevent the DuckDB engine from writing files via `sql`
 
 Connect to the data lake in read-only mode
 
