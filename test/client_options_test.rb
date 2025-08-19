@@ -70,7 +70,7 @@ class ClientOptionsTest < Minitest::Test
     client = new_client(read_only: true)
     assert_equal 3, client.sql("SELECT * FROM events").count
 
-    # can still create external files if disable_external_access is not set
+    # can still create external files
     client.sql("COPY events TO #{client.quote("#{tmpdir}/data.csv")}")
     assert File.exist?("#{tmpdir}/data.csv")
   end
