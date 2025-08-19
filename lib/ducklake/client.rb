@@ -30,6 +30,7 @@ module DuckLake
         raise ArgumentError, "Unsupported catalog type: #{catalog_uri.scheme}"
       end
 
+      @storage_scheme = storage_uri.scheme
       @storage_options = storage_options.dup
 
       secret_options = nil
@@ -296,9 +297,20 @@ module DuckLake
         "iceberg-position-delete",
         files.map.with_index.select { |v, i| v[:delete_file] }.to_h { |v, i| [i, [v[:delete_file]]] }
       ]
-      # current storage options can be passed as-is
-      # https://docs.rs/object_store/latest/object_store/aws/enum.AmazonS3ConfigKey.html
-      Polars.scan_parquet(sources, _deletion_files: deletion_files, storage_options: @storage_options)
+
+      storage_options = {}
+      case @storage_scheme
+      when "s3"
+        # https://docs.rs/object_store/latest/object_store/aws/enum.AmazonS3ConfigKey.html
+        storage_options =
+          @storage_options.slice(
+            :aws_access_key_id,
+            :aws_secret_access_key,
+            :region
+          )
+      end
+
+      Polars.scan_parquet(sources, _deletion_files: deletion_files, storage_options: storage_options)
     end
 
     # libduckdb does not provide function
