@@ -237,7 +237,7 @@ ducklake.set_option("parquet_compression", "zstd", table_name: "events")
 
 Note: This feature is experimental and does not prevent the DuckDB engine from writing files via `sql`
 
-Connect to the data lake in read-only mode
+Connect to the catalog in read-only mode
 
 ```ruby
 DuckLake::Client.new(read_only: true, ...)
