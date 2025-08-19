@@ -288,6 +288,7 @@ module DuckLake
     end
 
     # experimental
+    # TODO support schema changes
     def polars(table, snapshot_version: nil, snapshot_time: nil)
       files = list_files(table, snapshot_version:, snapshot_time:)
       sources = files.map { |v| v[:data_file] }
@@ -295,7 +296,8 @@ module DuckLake
         "iceberg-position-delete",
         files.map.with_index.select { |v, i| v[:delete_file] }.to_h { |v, i| [i, [v[:delete_file]]] }
       ]
-      # TODO support schema changes
+      # current storage options can be passed as-is
+      # https://docs.rs/object_store/latest/object_store/aws/enum.AmazonS3ConfigKey.html
       Polars.scan_parquet(sources, _deletion_files: deletion_files, storage_options: @storage_options)
     end
 
