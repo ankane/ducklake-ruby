@@ -285,6 +285,19 @@ module DuckLake
       nil
     end
 
+    # experimental
+    def polars(table, snapshot_version: nil, snapshot_time: nil)
+      files = list_files(table, snapshot_version:, snapshot_time:)
+      sources = files.map { |v| v[:data_file] }
+      deletion_files = [
+        "iceberg-position-delete",
+        files.map.with_index.select { |v, i| v[:delete_file] }.to_h { |v, i| [i, [v[:delete_file]]] }
+      ]
+      # TODO pass storage options
+      # TODO support schema changes
+      Polars.scan_parquet(sources, _deletion_files: deletion_files)
+    end
+
     # libduckdb does not provide function
     # https://duckdb.org/docs/stable/sql/dialect/keywords_and_identifiers.html
     def quote_identifier(value)
