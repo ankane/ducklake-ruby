@@ -30,6 +30,8 @@ module DuckLake
         raise ArgumentError, "Unsupported catalog type: #{catalog_uri.scheme}"
       end
 
+      @storage_options = storage_options.dup
+
       secret_options = nil
       storage_options = storage_options.dup
 
@@ -293,9 +295,8 @@ module DuckLake
         "iceberg-position-delete",
         files.map.with_index.select { |v, i| v[:delete_file] }.to_h { |v, i| [i, [v[:delete_file]]] }
       ]
-      # TODO pass storage options
       # TODO support schema changes
-      Polars.scan_parquet(sources, _deletion_files: deletion_files)
+      Polars.scan_parquet(sources, _deletion_files: deletion_files, storage_options: @storage_options)
     end
 
     # libduckdb does not provide function
