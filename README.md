@@ -240,7 +240,7 @@ Note: This feature is experimental
 Connect to the data lake in read-only mode
 
 ```ruby
-DuckLake::Client.new(_read_only: true, ...)
+DuckLake::Client.new(read_only: true, ...)
 ```
 
 Use read-only credentials for catalog database and storage provider and [disable external access](#external-access)

@@ -8,7 +8,7 @@ module DuckLake
       snapshot_time: nil,
       data_inlining_row_limit: 0,
       create_if_not_exists: false,
-      _read_only: false # experimental
+      read_only: false # experimental
     )
       catalog_uri = URI.parse(catalog_url)
       storage_uri = URI.parse(storage_url)
@@ -57,7 +57,7 @@ module DuckLake
       end
 
       attach_options = {data_path: storage_url}
-      attach_options[:read_only] = true if _read_only
+      attach_options[:read_only] = true if read_only
       attach_options[:snapshot_version] = snapshot_version if !snapshot_version.nil?
       attach_options[:snapshot_time] = snapshot_time if !snapshot_time.nil?
       attach_options[:data_inlining_row_limit] = data_inlining_row_limit if data_inlining_row_limit > 0
@@ -66,7 +66,7 @@ module DuckLake
       @catalog = "ducklake"
       @storage_url = storage_url
 
-      if _read_only
+      if read_only
         config = DuckDB::Config.new
         config["access_mode"] = "READ_ONLY"
 

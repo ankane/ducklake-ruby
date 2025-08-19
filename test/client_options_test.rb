@@ -51,7 +51,7 @@ class ClientOptionsTest < Minitest::Test
   end
 
   def test_read_only
-    client = new_client(_read_only: true)
+    client = new_client(read_only: true)
 
     error = assert_raises(DuckLake::InvalidInputError) do
       client.sql("CREATE TABLE events (id integer)")
@@ -67,7 +67,7 @@ class ClientOptionsTest < Minitest::Test
   def test_read_only_sql
     create_events(client)
 
-    client = new_client(_read_only: true)
+    client = new_client(read_only: true)
     assert_equal 3, client.sql("SELECT * FROM events").count
 
     # can still create external files if disable_external_access is not set
