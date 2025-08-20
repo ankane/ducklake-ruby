@@ -43,6 +43,13 @@ class SqlTest < Minitest::Test
     client.sql("DROP VIEW IF EXISTS events_view")
   end
 
+  def test_partitioning
+    client.sql("CREATE TABLE events (a bigint, b text)")
+    client.sql("ALTER TABLE events SET PARTITIONED BY (a)")
+    load_events
+    assert_equal 3, client.list_files("events").size
+  end
+
   def test_multiple_statements
     error = assert_raises(DuckLake::InvalidInputError) do
       client.sql("SELECT 1; SELECT 2").to_a
