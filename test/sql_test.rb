@@ -33,6 +33,16 @@ class SqlTest < Minitest::Test
     assert_kind_of String, client.sql("SELECT ?", [Time.now]).rows[0][0]
   end
 
+  def test_view
+    create_events
+    client.sql("CREATE VIEW events_view AS SELECT a AS c, b AS d FROM events")
+    result = client.sql("SELECT * FROM events_view")
+    assert_equal ["c", "d"], result.columns
+    assert_equal [[1, "one"], [2, "two"], [3, "three"]], result.rows
+  ensure
+    client.sql("DROP VIEW IF EXISTS events_view")
+  end
+
   def test_multiple_statements
     error = assert_raises(DuckLake::InvalidInputError) do
       client.sql("SELECT 1; SELECT 2").to_a
