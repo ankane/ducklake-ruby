@@ -181,7 +181,7 @@ Update the schema
 ducklake.sql("ALTER TABLE events ADD COLUMN active BOOLEAN")
 ```
 
-Set or remove a partitioning key
+Set or remove a [partitioning key](https://ducklake.select/docs/stable/duckdb/advanced_features/partitioning)
 
 ```ruby
 ducklake.sql("ALTER TABLE events SET PARTITIONED BY (name)")
