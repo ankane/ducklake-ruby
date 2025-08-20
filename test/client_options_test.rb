@@ -65,7 +65,7 @@ class ClientOptionsTest < Minitest::Test
   end
 
   def test_read_only_sql
-    create_events(client)
+    create_events
 
     client = new_client(read_only: true)
     assert_equal 3, client.sql("SELECT * FROM events").count

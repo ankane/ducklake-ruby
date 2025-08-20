@@ -294,7 +294,7 @@ class ClientTest < Minitest::Test
     ensure_storage_path
 
     assert_nil client.disable_external_access(allowed_directories: ["test/support"])
-    create_events(client)
+    create_events
 
     assert_equal 3, client.sql("SELECT * FROM events").count
 
@@ -308,7 +308,7 @@ class ClientTest < Minitest::Test
     ensure_storage_path
 
     assert_nil client.disable_external_access(allowed_paths: ["test/support/data.csv"])
-    create_events(client)
+    create_events
 
     assert_equal 3, client.sql("SELECT * FROM events").count
 
