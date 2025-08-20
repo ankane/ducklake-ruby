@@ -79,6 +79,16 @@ class SqlTest < Minitest::Test
     assert_equal 3, client.sql("SELECT * FROM events").count
   end
 
+  def test_transaction_nested
+    error = assert_raises(DuckLake::TransactionContextError) do
+      client.transaction do
+        client.transaction do
+        end
+      end
+    end
+    assert_equal "cannot start a transaction within a transaction", error.message
+  end
+
   def test_multiple_statements
     error = assert_raises(DuckLake::InvalidInputError) do
       client.sql("SELECT 1; SELECT 2").to_a

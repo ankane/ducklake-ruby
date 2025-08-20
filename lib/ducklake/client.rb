@@ -390,7 +390,8 @@ module DuckLake
         "Conversion Error: " => ConversionError,
         "Invalid Input Error: " => InvalidInputError,
         "IO Error: " => IOError,
-        "Permission Error: " => PermissionError
+        "Permission Error: " => PermissionError,
+        "TransactionContext Error: " => TransactionContextError
       }
     end
 

@@ -17,4 +17,5 @@ module DuckLake
   class IOError < Error; end
   class PermissionError < Error; end
   class Rollback < Error; end
+  class TransactionContextError < Error; end
 end
