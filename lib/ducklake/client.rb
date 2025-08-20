@@ -155,7 +155,9 @@ module DuckLake
     # TODO use keyword arguments?
     def table_changes(table, start_snapshot, end_snapshot)
       params = [@catalog, "main", table, start_snapshot, end_snapshot]
-      symbolize_keys execute("SELECT * FROM ducklake_table_changes(?, ?, ?, ?, ?)", params)
+      result = execute("SELECT * FROM ducklake_table_changes(?, ?, ?, ?, ?)", params)
+      # only return changes between snapshots
+      symbolize_keys result.reject { |v| v["snapshot_id"] == start_snapshot }
     end
 
     # TODO more DDL methods?
