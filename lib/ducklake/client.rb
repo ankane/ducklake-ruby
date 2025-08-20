@@ -152,6 +152,7 @@ module DuckLake
     end
 
     # experimental
+    # TODO use keyword arguments?
     def table_changes(table, start_snapshot, end_snapshot)
       params = [@catalog, "main", table, start_snapshot, end_snapshot]
       symbolize_keys execute("SELECT * FROM ducklake_table_changes(?, ?, ?, ?, ?)", params)
