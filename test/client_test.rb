@@ -191,6 +191,18 @@ class ClientTest < Minitest::Test
     assert_equal "Table does not exist!", error.message
   end
 
+  def test_table_changes
+    snapshot = client.snapshots.last[:snapshot_id]
+    create_events
+    snapshot2 = client.snapshots.last[:snapshot_id]
+    client.sql("DELETE FROM events WHERE a = 2")
+    snapshot3 = client.snapshots.last[:snapshot_id]
+    assert_equal 3, client.table_changes("events", snapshot, snapshot2).size
+    assert_equal 4, client.table_changes("events", snapshot, snapshot3).size
+    # TODO fix
+    # assert_equal 1, client.table_changes("events", snapshot2, snapshot3).size
+  end
+
   def test_drop_table
     create_events
     client.drop_table("events")

@@ -151,6 +151,12 @@ module DuckLake
       symbolize_keys result
     end
 
+    # experimental
+    def table_changes(table, start_snapshot, end_snapshot)
+      params = [@catalog, "main", table, start_snapshot, end_snapshot]
+      symbolize_keys execute("SELECT * FROM ducklake_table_changes(?, ?, ?, ?, ?)", params)
+    end
+
     # TODO more DDL methods?
     def drop_table(table, if_exists: nil)
       execute("DROP TABLE#{" IF EXISTS" if if_exists} #{quote_identifier(table)}")
