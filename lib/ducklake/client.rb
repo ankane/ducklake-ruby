@@ -152,7 +152,7 @@ module DuckLake
     end
 
     # experimental
-    # TODO use keyword arguments?
+    # TODO use keyword arguments or range?
     def table_changes(table, start_snapshot, end_snapshot)
       params = [@catalog, "main", table, start_snapshot, end_snapshot]
       result = execute("SELECT * FROM ducklake_table_changes(?, ?, ?, ?, ?)", params)
