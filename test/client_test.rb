@@ -291,6 +291,8 @@ class ClientTest < Minitest::Test
   end
 
   def test_disable_external_access_allowed_directories
+    ensure_storage_path
+
     assert_nil client.disable_external_access(allowed_directories: ["test/support"])
     create_events(client)
 
@@ -303,6 +305,8 @@ class ClientTest < Minitest::Test
   end
 
   def test_disable_external_access_allowed_paths
+    ensure_storage_path
+
     assert_nil client.disable_external_access(allowed_paths: ["test/support/data.csv"])
     create_events(client)
 
@@ -357,5 +361,13 @@ class ClientTest < Minitest::Test
   def test_inspect
     assert_equal client.inspect, client.to_s
     refute_match "@db", client.inspect
+  end
+
+  private
+
+  def ensure_storage_path
+    if storage_url.start_with?("/") && !File.exist?(storage_url)
+      Dir.mkdir(storage_url)
+    end
   end
 end
