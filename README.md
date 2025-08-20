@@ -163,24 +163,6 @@ Delete data
 ducklake.sql("DELETE * FROM events WHERE id = ?", [1])
 ```
 
-Update the schema
-
-```ruby
-ducklake.sql("ALTER TABLE events ADD COLUMN active BOOLEAN")
-```
-
-Set a partitioning key
-
-```ruby
-ducklake.sql("ALTER TABLE events SET PARTITIONED BY (name)")
-```
-
-Create a view
-
-```ruby
-ducklake.sql("CREATE VIEW events_view AS SELECT * FROM events")
-```
-
 Run multiple statements in a transaction (unreleased)
 
 ```ruby
@@ -190,6 +172,28 @@ end
 ```
 
 Raise `DuckLake::Rollback` to rollback
+
+## Schema Changes
+
+Update the schema
+
+```ruby
+ducklake.sql("ALTER TABLE events ADD COLUMN active BOOLEAN")
+```
+
+Set or remove a partitioning key
+
+```ruby
+ducklake.sql("ALTER TABLE events SET PARTITIONED BY (name)")
+# or
+ducklake.sql("ALTER TABLE events RESET PARTITIONED BY")
+```
+
+Create a view
+
+```ruby
+ducklake.sql("CREATE VIEW events_view AS SELECT * FROM events")
+```
 
 ## Snapshots
 
