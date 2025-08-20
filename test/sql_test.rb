@@ -48,6 +48,10 @@ class SqlTest < Minitest::Test
     client.sql("ALTER TABLE events SET PARTITIONED BY (a)")
     load_events
     assert_equal 3, client.list_files("events").size
+
+    client.sql("ALTER TABLE events RESET PARTITIONED BY")
+    load_events
+    assert_equal 4, client.list_files("events").size
   end
 
   def test_transaction
