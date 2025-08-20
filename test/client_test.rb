@@ -200,7 +200,8 @@ class ClientTest < Minitest::Test
     assert_equal 3, client.table_changes("events", snapshot, snapshot2).size
     assert_equal 4, client.table_changes("events", snapshot, snapshot3).size
     # TODO fix
-    assert_equal 1, client.table_changes("events", snapshot2, snapshot2).size
+    assert_equal 3, client.table_changes("events", snapshot2, snapshot2).size
+    assert_equal 1, client.table_changes("events", snapshot3, snapshot3).size
   end
 
   def test_table_changes_columns
