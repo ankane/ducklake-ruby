@@ -203,6 +203,16 @@ class ClientTest < Minitest::Test
     # assert_equal 1, client.table_changes("events", snapshot2, snapshot3).size
   end
 
+  def test_table_changes_columns
+    snapshot = client.snapshots.last[:snapshot_id]
+    client.sql("CREATE TABLE events (snapshot_id bigint, rowid bigint, change_type varchar, snapshot_id_1 bigint)")
+    client.sql("INSERT INTO events VALUES (1, 2, 'Test', 3)")
+    snapshot2 = client.snapshots.last[:snapshot_id]
+    result = client.table_changes("events", snapshot, snapshot2)
+    expected = [:snapshot_id, :rowid, :change_type, :snapshot_id_1, :rowid_1, :change_type_1, :snapshot_id_1_1]
+    assert_equal expected, result.first.keys
+  end
+
   def test_drop_table
     create_events
     client.drop_table("events")
