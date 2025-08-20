@@ -16,4 +16,5 @@ module DuckLake
   class InvalidInputError < Error; end
   class IOError < Error; end
   class PermissionError < Error; end
+  class Rollback < Error; end
 end

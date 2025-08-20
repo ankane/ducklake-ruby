@@ -106,6 +106,17 @@ module DuckLake
       execute(sql, params)
     end
 
+    def transaction
+      execute("BEGIN")
+      begin
+        yield
+        execute("COMMIT")
+      rescue => e
+        execute("ROLLBACK")
+        raise e unless e.is_a?(Rollback)
+      end
+    end
+
     def attach(alias_, url)
       type = nil
       extension = nil

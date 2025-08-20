@@ -181,6 +181,16 @@ Create a view
 ducklake.sql("CREATE VIEW events_view AS SELECT * FROM events")
 ```
 
+Run multiple statements in a transaction (unreleased)
+
+```ruby
+ducklake.transaction do
+  # ...
+end
+```
+
+Raise `DuckLake::Rollback` to rollback
+
 ## Snapshots
 
 Get snapshots

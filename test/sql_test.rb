@@ -50,6 +50,35 @@ class SqlTest < Minitest::Test
     assert_equal 3, client.list_files("events").size
   end
 
+  def test_transaction
+    client.transaction do
+      create_events
+      load_events
+    end
+    assert_equal 6, client.sql("SELECT * FROM events").count
+  end
+
+  def test_transaction_rollback
+    create_events
+    client.transaction do
+      load_events
+      raise DuckLake::Rollback
+    end
+    assert_equal 3, client.sql("SELECT * FROM events").count
+  end
+
+  def test_transaction_error
+    create_events
+    error = assert_raises do
+      client.transaction do
+        load_events
+        raise "Error"
+      end
+    end
+    assert_equal "Error", error.message
+    assert_equal 3, client.sql("SELECT * FROM events").count
+  end
+
   def test_multiple_statements
     error = assert_raises(DuckLake::InvalidInputError) do
       client.sql("SELECT 1; SELECT 2").to_a
