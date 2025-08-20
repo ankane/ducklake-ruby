@@ -169,6 +169,18 @@ Update the schema
 ducklake.sql("ALTER TABLE events ADD COLUMN active BOOLEAN")
 ```
 
+Set a partitioning key
+
+```ruby
+ducklake.sql("ALTER TABLE events SET PARTITIONED BY (name)")
+```
+
+Create a view
+
+```ruby
+ducklake.sql("CREATE VIEW events_view AS SELECT * FROM events")
+```
+
 ## Snapshots
 
 Get snapshots
