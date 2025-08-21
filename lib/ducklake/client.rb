@@ -309,15 +309,26 @@ module DuckLake
     end
 
     # experimental
-    # TODO support schema changes
     def polars(table, snapshot_version: nil, snapshot_time: nil)
       files = list_files(table, snapshot_version:, snapshot_time:)
       sources = files.map { |v| v[:data_file] }
+      # TODO support schema changes
+      # column_mapping = [
+      #   "iceberg-column-mapping",
+      #   nil
+      # ]
       deletion_files = [
         "iceberg-position-delete",
         files.map.with_index.select { |v, i| v[:delete_file] }.to_h { |v, i| [i, [v[:delete_file]]] }
       ]
-      Polars.scan_parquet(sources, _deletion_files: deletion_files, storage_options: polars_storage_options)
+      Polars.scan_parquet(
+        sources,
+        storage_options: polars_storage_options,
+        # allow_missing_columns: true,
+        # extra_columns: "ignore",
+        # _column_mapping: column_mapping,
+        _deletion_files: deletion_files
+      )
     end
 
     # libduckdb does not provide function
