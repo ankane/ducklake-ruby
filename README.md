@@ -189,10 +189,18 @@ ducklake.sql("ALTER TABLE events SET PARTITIONED BY (name)")
 ducklake.sql("ALTER TABLE events RESET PARTITIONED BY")
 ```
 
+## Views
+
 Create a view
 
 ```ruby
 ducklake.sql("CREATE VIEW events_view AS SELECT * FROM events")
+```
+
+Drop a view
+
+```ruby
+ducklake.sql("DROP VIEW events_view")
 ```
 
 ## Snapshots
