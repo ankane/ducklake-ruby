@@ -320,7 +320,7 @@ ducklake.sql("COPY #{quoted_table} FROM #{quoted_file}")
 
 ## Polars
 
-Note: This feature is experimental and does not work on tables with schema changes
+Note: This feature is experimental and does not currently work on tables with schema changes
 
 Query the data with [Ruby Polars](https://github.com/ankane/ruby-polars)
 
