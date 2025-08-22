@@ -61,6 +61,13 @@ class ClientTest < Minitest::Test
     assert_equal "zstd", option[:value]
   end
 
+  def test_set_option_unsupported
+    error = assert_raises(DuckLake::NotImplementedError) do
+      client.set_option("hello", "world")
+    end
+    assert_equal "Unsupported option hello", error.message
+  end
+
   def test_format_version
     assert_equal "0.2", client.format_version
   end

@@ -401,6 +401,7 @@ module DuckLake
         "Conversion Error: " => ConversionError,
         "Invalid Input Error: " => InvalidInputError,
         "IO Error: " => IOError,
+        "Not implemented Error: " => NotImplementedError,
         "Permission Error: " => PermissionError,
         "TransactionContext Error: " => TransactionContextError
       }

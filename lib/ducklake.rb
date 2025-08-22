@@ -15,6 +15,7 @@ module DuckLake
   class ConversionError < Error; end
   class InvalidInputError < Error; end
   class IOError < Error; end
+  class NotImplementedError < Error; end
   class PermissionError < Error; end
   class Rollback < Error; end
   class TransactionContextError < Error; end
