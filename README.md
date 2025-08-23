@@ -163,7 +163,7 @@ Delete data
 ducklake.sql("DELETE * FROM events WHERE id = ?", [1])
 ```
 
-Run multiple statements in a transaction (unreleased)
+Run multiple statements in a transaction
 
 ```ruby
 ducklake.transaction do
