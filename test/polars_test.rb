@@ -1,7 +1,7 @@
 require_relative "test_helper"
 
 class PolarsTest < Minitest::Test
-  include Polars::Testing if defined?(Polars)
+  include Polars::Testing if ENV["TEST_POLARS"]
 
   def setup
     skip unless ENV["TEST_POLARS"]
