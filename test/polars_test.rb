@@ -1,6 +1,8 @@
 require_relative "test_helper"
 
 class PolarsTest < Minitest::Test
+  include Polars::Testing if defined?(Polars)
+
   def setup
     skip unless ENV["TEST_POLARS"]
     super
@@ -14,10 +16,10 @@ class PolarsTest < Minitest::Test
     client.sql("DELETE FROM events WHERE a = 4")
 
     expected = Polars::DataFrame.new({"a" => [1, 3, 5], "b" => ["one", "three", "five"]})
-    assert_equal expected, client.polars("events").collect
+    assert_frame_equal expected, client.polars("events").collect
 
     expected = Polars::DataFrame.new({"a" => [1, 3, 4, 5], "b" => ["one", "three", "four", "five"]})
-    assert_equal expected, client.polars("events", snapshot_version: snapshot[:snapshot_id]).collect
+    assert_frame_equal expected, client.polars("events", snapshot_version: snapshot[:snapshot_id]).collect
   end
 
   def test_rename
