@@ -154,7 +154,7 @@ Note: This transfers ownership to the data lake, so the file may be deleted as p
 Update data
 
 ```ruby
-ducklake.sql("UPDATE events SET name = ? WHERE id = 1", ["Test", 1])
+ducklake.sql("UPDATE events SET name = ? WHERE id = ?", ["Test", 1])
 ```
 
 Delete data
