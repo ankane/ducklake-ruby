@@ -33,6 +33,13 @@ class SqlTest < Minitest::Test
     assert_kind_of String, client.sql("SELECT ?", [Time.now]).rows[0][0]
   end
 
+  def test_extra_params
+    error = assert_raises(DuckLake::Error) do
+      client.sql("SELECT ?", [1, 2])
+    end
+    assert_equal "fail to bind 2 parameter", error.message
+  end
+
   def test_view
     create_events
     client.sql("CREATE VIEW events_view AS SELECT a AS c, b AS d FROM events")
