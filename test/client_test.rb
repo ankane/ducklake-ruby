@@ -19,6 +19,17 @@ class ClientTest < Minitest::Test
     assert_equal "hello", result.first["c"]
   end
 
+  def test_type_promotion
+    client.sql("CREATE TABLE events (id INTEGER)")
+
+    error = assert_raises(DuckLake::CatalogError) do
+      client.sql("ALTER TABLE events ALTER COLUMN id TYPE SMALLINT")
+    end
+    assert_match "only widening type promotions are allowed", error.message
+
+    client.sql("ALTER TABLE events ALTER COLUMN id TYPE BIGINT")
+  end
+
   def test_time_travel
     # TODO this should not be needed
     clear_snapshots
