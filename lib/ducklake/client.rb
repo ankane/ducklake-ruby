@@ -10,7 +10,8 @@ module DuckLake
       create_if_not_exists: false,
       migrate_if_required: true, # TODO make false in 0.2.0
       read_only: false, # experimental
-      override_storage_url: false # experimental
+      override_storage_url: false, # experimental
+      encrypted: false # experimental
     )
       catalog_uri = URI.parse(catalog_url)
       storage_uri = URI.parse(storage_url)
@@ -60,6 +61,7 @@ module DuckLake
 
       attach_options = {data_path: storage_url}
       attach_options[:read_only] = true if read_only
+      attach_options[:encrypted] = 1 if encrypted
       attach_options[:snapshot_version] = snapshot_version if !snapshot_version.nil?
       attach_options[:snapshot_time] = snapshot_time if !snapshot_time.nil?
       attach_options[:data_inlining_row_limit] = data_inlining_row_limit if data_inlining_row_limit > 0

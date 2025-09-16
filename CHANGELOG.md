@@ -1,6 +1,7 @@
 ## 0.1.3 (unreleased)
 
 - Added `migrate_if_required` option
+- Added experimental support for encryption
 
 ## 0.1.2 (2025-08-23)
 

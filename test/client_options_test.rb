@@ -75,6 +75,18 @@ class ClientOptionsTest < Minitest::Test
     assert File.exist?("#{tmpdir}/data.csv")
   end
 
+  def test_encrypted
+    client =
+      new_client(
+        catalog_url: catalog_url.sub("ducklake", "ducklake_encrypted"),
+        encrypted: true,
+        create_if_not_exists: true
+      )
+    client.drop_table("events", if_exists: true)
+    create_events(client)
+    assert_equal 3, client.sql("SELECT * FROM events").count
+  end
+
   def test_snapshot_version
     error = assert_raises(DuckLake::InvalidInputError) do
       new_client(snapshot_version: 1000000000)

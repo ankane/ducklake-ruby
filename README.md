@@ -326,6 +326,16 @@ quoted_file = ducklake.quote("path/to/data.csv")
 ducklake.sql("COPY #{quoted_table} FROM #{quoted_file}")
 ```
 
+## Encryption
+
+Note: This feature is unreleased and must be set when creating the catalog
+
+Encrypt Parquet files
+
+```ruby
+DuckLake::Client.new(encryption: true, ...)
+```
+
 ## Polars
 
 Note: This feature is experimental and does not currently work on tables with schema changes
