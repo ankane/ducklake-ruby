@@ -8,6 +8,7 @@ module DuckLake
       snapshot_time: nil,
       data_inlining_row_limit: 0,
       create_if_not_exists: false,
+      migrate_if_required: true, # TODO make false in 0.2.0
       read_only: false, # experimental
       override_storage_url: false # experimental
     )
@@ -63,6 +64,7 @@ module DuckLake
       attach_options[:snapshot_time] = snapshot_time if !snapshot_time.nil?
       attach_options[:data_inlining_row_limit] = data_inlining_row_limit if data_inlining_row_limit > 0
       attach_options[:create_if_not_exists] = false unless create_if_not_exists
+      attach_options[:migrate_if_required] = false unless migrate_if_required
       attach_options[:override_data_path] = true if override_storage_url
 
       @catalog = "ducklake"
