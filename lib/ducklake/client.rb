@@ -8,7 +8,8 @@ module DuckLake
       snapshot_time: nil,
       data_inlining_row_limit: 0,
       create_if_not_exists: false,
-      read_only: false # experimental
+      read_only: false, # experimental
+      override_storage_url: false # experimental
     )
       catalog_uri = URI.parse(catalog_url)
       storage_uri = URI.parse(storage_url)
@@ -62,6 +63,7 @@ module DuckLake
       attach_options[:snapshot_time] = snapshot_time if !snapshot_time.nil?
       attach_options[:data_inlining_row_limit] = data_inlining_row_limit if data_inlining_row_limit > 0
       attach_options[:create_if_not_exists] = false unless create_if_not_exists
+      attach_options[:override_data_path] = true if override_storage_url
 
       @catalog = "ducklake"
       @storage_url = storage_url

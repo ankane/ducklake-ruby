@@ -80,7 +80,7 @@ class ClientTest < Minitest::Test
   end
 
   def test_format_version
-    assert_equal "0.2", client.format_version
+    assert_equal "0.3", client.format_version
   end
 
   def test_merge_adjacent_files

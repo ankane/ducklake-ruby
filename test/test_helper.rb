@@ -41,7 +41,8 @@ class Minitest::Test
   def client_options
     {
       catalog_url: catalog_url,
-      storage_url: storage_url
+      storage_url: storage_url,
+      override_storage_url: true
     }
   end
 
