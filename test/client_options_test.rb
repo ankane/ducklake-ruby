@@ -87,6 +87,13 @@ class ClientOptionsTest < Minitest::Test
     assert_equal 3, client.sql("SELECT * FROM events").count
   end
 
+  def test_encrypted_existing
+    error = assert_raises(DuckLake::InvalidInputError) do
+      new_client(encrypted: true)
+    end
+    assert_match "the database is not encrypted", error.message
+  end
+
   def test_snapshot_version
     error = assert_raises(DuckLake::InvalidInputError) do
       new_client(snapshot_version: 1000000000)
