@@ -192,6 +192,10 @@ module DuckLake
       execute("SELECT * FROM ducklake_current_snapshot(?)", [@catalog]).rows[0][0]
     end
 
+    def last_committed_snapshot
+      execute("SELECT * FROM ducklake_last_committed_snapshot(?)", [@catalog]).rows[0][0]
+    end
+
     # https://ducklake.select/docs/stable/duckdb/usage/configuration
     def options
       symbolize_keys execute("SELECT * FROM ducklake_options(?)", [@catalog])

@@ -17,6 +17,11 @@ class ClientTest < Minitest::Test
     assert_equal snapshot_id + 1, client.current_snapshot
   end
 
+  def test_last_committed_snapshot
+    create_events
+    assert_kind_of Integer, client.last_committed_snapshot
+  end
+
   def test_schema_evolution
     create_events
     client.sql("ALTER TABLE events ADD COLUMN c VARCHAR DEFAULT 'hello'")

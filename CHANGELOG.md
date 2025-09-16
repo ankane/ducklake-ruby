@@ -1,6 +1,6 @@
 ## 0.1.3 (unreleased)
 
-- Added `current_snapshot` method
+- Added `current_snapshot` and `last_committed_snapshot` methods
 - Added `migrate_if_required` option
 - Added experimental support for encryption
 
