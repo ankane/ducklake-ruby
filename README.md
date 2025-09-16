@@ -412,6 +412,7 @@ bundle install
 
 # Postgres
 createdb ducklake_ruby_test
+createdb ducklake_encrypted_ruby_test
 bundle exec rake test:postgres
 
 # MySQL and MariaDB
