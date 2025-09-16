@@ -106,6 +106,7 @@ class SqlTest < Minitest::Test
     end
     snapshot = client.snapshots.last
     assert_equal "Test message", snapshot[:commit_message]
+    assert_nil snapshot[:author]
   end
 
   def test_transaction_commit_author
@@ -114,6 +115,7 @@ class SqlTest < Minitest::Test
     end
     snapshot = client.snapshots.last
     assert_equal "Test user", snapshot[:author]
+    assert_nil snapshot[:commit_message]
   end
 
   def test_multiple_statements
