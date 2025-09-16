@@ -1,5 +1,6 @@
 ## 0.1.3 (unreleased)
 
+- Added `current_snapshot` method
 - Added `migrate_if_required` option
 - Added experimental support for encryption
 
