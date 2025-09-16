@@ -112,10 +112,11 @@ module DuckLake
       execute(sql, params)
     end
 
-    def transaction
+    def transaction(commit_message: nil, commit_author: nil)
       execute("BEGIN")
       begin
         yield
+        set_commit_message(commit_message, commit_author) if commit_message || commit_author
         execute("COMMIT")
       rescue => e
         execute("ROLLBACK")
@@ -454,6 +455,11 @@ module DuckLake
         raise "Invalid option name"
       end
       name
+    end
+
+    def set_commit_message(message, author)
+      execute("CALL ducklake_set_commit_message(?, ?, ?)", [@catalog, author, message])
+      nil
     end
 
     def symbolize_keys(result)

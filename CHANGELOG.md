@@ -1,6 +1,7 @@
 ## 0.1.3 (unreleased)
 
 - Added `current_snapshot` and `last_committed_snapshot` methods
+- Added `commit_message` and `commit_author` options to `transaction` method
 - Added `migrate_if_required` option
 - Added experimental support for encryption
 

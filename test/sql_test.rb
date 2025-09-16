@@ -100,6 +100,22 @@ class SqlTest < Minitest::Test
     assert_equal "cannot start a transaction within a transaction", error.message
   end
 
+  def test_transaction_commit_message
+    client.transaction(commit_message: "Test message") do
+      create_events
+    end
+    snapshot = client.snapshots.last
+    assert_equal "Test message", snapshot[:commit_message]
+  end
+
+  def test_transaction_commit_author
+    client.transaction(commit_author: "Test user") do
+      create_events
+    end
+    snapshot = client.snapshots.last
+    assert_equal "Test user", snapshot[:author]
+  end
+
   def test_multiple_statements
     error = assert_raises(DuckLake::InvalidInputError) do
       client.sql("SELECT 1; SELECT 2").to_a
