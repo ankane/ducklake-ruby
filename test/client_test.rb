@@ -176,10 +176,6 @@ class ClientTest < Minitest::Test
   def test_data_inlining
     skip unless duckdb?
 
-    # TODO remove when released
-    # https://github.com/duckdb/ducklake/pull/278
-    skip "ducklake_flush_inlined_data not released"
-
     client = new_client(data_inlining_row_limit: 10)
     create_events(client)
     assert_equal 0, client.list_files("events").size
