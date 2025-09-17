@@ -40,6 +40,20 @@ class SqlTest < Minitest::Test
     assert_equal "fail to bind 2 parameter", error.message
   end
 
+  def test_update
+    create_events
+    client.sql("UPDATE events SET b = ? WHERE a = ?", ["two!", 2])
+    result = client.sql("SELECT * FROM events")
+    assert_equal [[1, "one"], [2, "two!"], [3, "three"]], result.rows.sort_by(&:first)
+  end
+
+  def test_delete
+    create_events
+    client.sql("DELETE FROM events WHERE a = ?", [2])
+    result = client.sql("SELECT * FROM events")
+    assert_equal [[1, "one"], [3, "three"]], result.rows
+  end
+
   def test_view
     create_events
     client.sql("CREATE VIEW events_view AS SELECT a AS c, b AS d FROM events")
