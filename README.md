@@ -417,6 +417,7 @@ bundle exec rake test:postgres
 
 # MySQL and MariaDB
 mysqladmin create ducklake_ruby_test
+mysqladmin create ducklake_encrypted_ruby_test
 bundle exec rake test:mysql
 
 # SQLite
