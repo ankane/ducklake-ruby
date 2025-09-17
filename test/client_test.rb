@@ -361,6 +361,11 @@ class ClientTest < Minitest::Test
     client = new_client(storage_url: "#{tmpdir}/ducklake")
     create_events(client)
 
+    error = assert_raises(DuckLake::InvalidConfigurationError) do
+      new_client(storage_url: "#{tmpdir}/ducklake2", override_storage_url: false)
+    end
+    assert_match "does not match existing data path in the catalog", error.message
+
     client2 = new_client(storage_url: "#{tmpdir}/ducklake2")
     load_events(client2)
 

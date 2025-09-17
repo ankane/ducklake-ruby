@@ -13,6 +13,7 @@ module DuckLake
   class Error < StandardError; end
   class CatalogError < Error; end
   class ConversionError < Error; end
+  class InvalidConfigurationError < Error; end
   class InvalidInputError < Error; end
   class IOError < Error; end
   class NotImplementedError < Error; end

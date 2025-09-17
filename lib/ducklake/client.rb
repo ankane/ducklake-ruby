@@ -414,6 +414,7 @@ module DuckLake
       @error_mapping ||= {
         "Catalog Error: " => CatalogError,
         "Conversion Error: " => ConversionError,
+        "Invalid Configuration Error: " => InvalidConfigurationError,
         "Invalid Input Error: " => InvalidInputError,
         "IO Error: " => IOError,
         "Not implemented Error: " => NotImplementedError,
