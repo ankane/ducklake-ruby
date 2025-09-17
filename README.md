@@ -215,7 +215,7 @@ Query the data at a specific snapshot version or time
 
 ```ruby
 ducklake.sql("SELECT * FROM events AT (VERSION => ?)", [3])
-#
+# or
 ducklake.sql("SELECT * FROM events AT (TIMESTAMP => ?)", [Date.today - 7])
 ```
 
