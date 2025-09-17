@@ -26,7 +26,7 @@ jobs:
       - uses: ankane/setup-postgres@v1
         with:
           database: ducklake_ruby_test
-      - run: createdb ducklake_encrypted_ruby_test
+      - run: createdb ducklake_ruby_test2
       - run: bundle exec rake test:postgres
       - run: bundle exec rake test:sqlite
       - run: bundle exec rake test:duckdb

@@ -78,7 +78,7 @@ class ClientOptionsTest < Minitest::Test
   def test_encrypted
     client =
       new_client(
-        catalog_url: catalog_url.sub("ducklake", "ducklake_encrypted"),
+        catalog_url: catalog_url.sub("ruby_test", "ruby_test2"),
         encrypted: true,
         create_if_not_exists: true
       )

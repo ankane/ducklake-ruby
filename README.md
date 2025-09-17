@@ -412,12 +412,12 @@ bundle install
 
 # Postgres
 createdb ducklake_ruby_test
-createdb ducklake_encrypted_ruby_test
+createdb ducklake_ruby_test2
 bundle exec rake test:postgres
 
 # MySQL and MariaDB
 mysqladmin create ducklake_ruby_test
-mysqladmin create ducklake_encrypted_ruby_test
+mysqladmin create ducklake_ruby_test2
 bundle exec rake test:mysql
 
 # SQLite

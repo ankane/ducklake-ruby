@@ -30,9 +30,9 @@ class Minitest::Test
       when "mariadb"
         "mariadb://localhost/ducklake_ruby_test"
       when "sqlite"
-        "sqlite:///#{tmpdir}/ducklake.sqlite"
+        "sqlite:///#{tmpdir}/ducklake_ruby_test.sqlite"
       when "duckdb"
-        "duckdb:///#{tmpdir}/ducklake.duckdb"
+        "duckdb:///#{tmpdir}/ducklake_ruby_test.duckdb"
       else
         raise "Unsupported catalog"
       end
