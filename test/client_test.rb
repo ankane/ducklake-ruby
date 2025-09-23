@@ -138,8 +138,8 @@ class ClientTest < Minitest::Test
   end
 
   def test_delete_orphaned_files
-    client.cleanup_old_files(cleanup_all: true)
-    assert_empty client.cleanup_old_files(cleanup_all: true)
+    client.delete_orphaned_files(cleanup_all: true)
+    assert_empty client.delete_orphaned_files(cleanup_all: true)
   end
 
   def test_rewrite_data_files
