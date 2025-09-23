@@ -163,6 +163,8 @@ Delete data
 ducklake.sql("DELETE * FROM events WHERE id = ?", [1])
 ```
 
+## Transactions
+
 Run multiple statements in a transaction
 
 ```ruby
@@ -172,6 +174,16 @@ end
 ```
 
 Raise `DuckLake::Rollback` to rollback
+
+Add commit info to a transaction
+
+```ruby
+ducklake.transaction(commit_author: "...", commit_message: "...") do
+  # ...
+end
+```
+
+This will appear in [snapshots](#snapshots)
 
 ## Schema Changes
 
