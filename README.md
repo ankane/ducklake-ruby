@@ -223,6 +223,12 @@ Get snapshots
 ducklake.snapshots
 ```
 
+Get the current snapshot
+
+```ruby
+ducklake.current_snapshot
+```
+
 Query the data at a specific snapshot version or time
 
 ```ruby
@@ -257,6 +263,12 @@ Clean up old files
 
 ```ruby
 ducklake.cleanup_old_files(older_than: Date.today - 7)
+```
+
+Rewrite files with a certain percentage of deleted rows
+
+```ruby
+ducklake.rewrite_data_files(delete_threshold: 0.5)
 ```
 
 ## Configuration
