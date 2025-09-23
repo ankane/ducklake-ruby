@@ -328,7 +328,7 @@ ducklake.sql("COPY #{quoted_table} FROM #{quoted_file}")
 
 ## Encryption
 
-Note: This feature is unreleased and must be set when creating the catalog
+Note: This feature is experimental and must be set when creating the catalog
 
 Encrypt Parquet files
 
