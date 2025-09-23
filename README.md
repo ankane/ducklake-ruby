@@ -178,7 +178,7 @@ Raise `DuckLake::Rollback` to rollback
 Add commit info to a transaction
 
 ```ruby
-ducklake.transaction(commit_author: "...", commit_message: "...") do
+ducklake.transaction(commit_message: "...", commit_author: "...") do
   # ...
 end
 ```
