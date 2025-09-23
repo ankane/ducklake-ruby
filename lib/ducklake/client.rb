@@ -272,6 +272,25 @@ module DuckLake
       symbolize_keys execute("CALL ducklake_cleanup_old_files(#{args.join(", ")})", params)
     end
 
+    # https://ducklake.select/docs/stable/duckdb/maintenance/rewrite_data_files
+    def rewrite_data_files(table = nil, delete_threshold: nil)
+      args = ["?"]
+      params = [@catalog]
+
+      if !table.nil?
+        args << "?"
+        params << table
+      end
+
+      if !delete_threshold.nil?
+        args << "delete_threshold => ?"
+        params << delete_threshold
+      end
+
+      execute("CALL ducklake_rewrite_data_files(#{args.join(", ")})", params)
+      nil
+    end
+
     # https://ducklake.select/docs/stable/duckdb/advanced_features/data_inlining
     def flush_inlined_data(table_name: nil)
       args = ["?"]

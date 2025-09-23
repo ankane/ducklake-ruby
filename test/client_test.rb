@@ -137,6 +137,17 @@ class ClientTest < Minitest::Test
     assert_equal 1, client.cleanup_old_files(cleanup_all: true).size
   end
 
+  def test_rewrite_data_files
+    create_events
+    client.sql("DELETE FROM events WHERE a > 1")
+
+    assert_nil client.rewrite_data_files(delete_threshold: 0.5)
+
+    files = client.list_files("events")
+    assert_equal 1, files.size
+    assert_nil files[0][:delete_file]
+  end
+
   def test_list_files
     clear_old_files
 
