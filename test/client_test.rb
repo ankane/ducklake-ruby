@@ -153,6 +153,12 @@ class ClientTest < Minitest::Test
     assert_nil files[0][:delete_file]
   end
 
+  def test_checkpoint
+    assert_raises(DuckLake::BinderError) do
+      client.checkpoint
+    end
+  end
+
   def test_list_files
     clear_old_files
 

@@ -11,6 +11,7 @@ require_relative "ducklake/version"
 
 module DuckLake
   class Error < StandardError; end
+  class BinderError < Error; end
   class CatalogError < Error; end
   class ConversionError < Error; end
   class InvalidConfigurationError < Error; end

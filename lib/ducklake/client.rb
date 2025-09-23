@@ -314,6 +314,13 @@ module DuckLake
       nil
     end
 
+    # experimental
+    # https://ducklake.select/docs/stable/duckdb/maintenance/checkpoint
+    def checkpoint
+      execute("CHECKPOINT")
+      nil
+    end
+
     # https://ducklake.select/docs/stable/duckdb/advanced_features/data_inlining
     def flush_inlined_data(table_name: nil)
       args = ["?"]
@@ -454,6 +461,7 @@ module DuckLake
 
     def error_mapping
       @error_mapping ||= {
+        "Binder Error: " => BinderError,
         "Catalog Error: " => CatalogError,
         "Conversion Error: " => ConversionError,
         "Invalid Configuration Error: " => InvalidConfigurationError,
