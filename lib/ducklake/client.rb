@@ -272,6 +272,29 @@ module DuckLake
       symbolize_keys execute("CALL ducklake_cleanup_old_files(#{args.join(", ")})", params)
     end
 
+    # https://ducklake.select/docs/stable/duckdb/maintenance/cleanup_of_files#cleanup-of-orphaned-files
+    def delete_orphaned_files(cleanup_all: false, older_than: nil, dry_run: false)
+      args = ["?"]
+      params = [@catalog]
+
+      if cleanup_all
+        args << "cleanup_all => ?"
+        params << cleanup_all
+      end
+
+      if !older_than.nil?
+        args << "older_than => ?"
+        params << older_than
+      end
+
+      if dry_run
+        args << "dry_run => ?"
+        params << dry_run
+      end
+
+      symbolize_keys execute("CALL ducklake_delete_orphaned_files(#{args.join(", ")})", params)
+    end
+
     # https://ducklake.select/docs/stable/duckdb/maintenance/rewrite_data_files
     def rewrite_data_files(table = nil, delete_threshold: nil)
       args = ["?"]
