@@ -1,4 +1,4 @@
-## 0.1.3 (unreleased)
+## 0.1.3 (2025-09-23)
 
 - Added `current_snapshot` and `last_committed_snapshot` methods
 - Added `rewrite_data_files` and `delete_orphaned_files` methods
