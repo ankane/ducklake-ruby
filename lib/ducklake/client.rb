@@ -220,6 +220,16 @@ module DuckLake
       execute("SELECT value FROM ducklake_options(?) WHERE option_name = ?", [@catalog, "version"]).first["value"]
     end
 
+    # experimental
+    def extension_version
+      execute("SELECT extension_version FROM duckdb_extensions() WHERE extension_name = ?", ["ducklake"]).first["extension_version"]
+    end
+
+    # experimental
+    def duckdb_version
+      execute("SELECT VERSION() AS version").first["version"]
+    end
+
     # https://ducklake.select/docs/stable/duckdb/maintenance/merge_adjacent_files
     def merge_adjacent_files
       execute("CALL merge_adjacent_files()")

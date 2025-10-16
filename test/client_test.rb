@@ -94,6 +94,14 @@ class ClientTest < Minitest::Test
     assert_equal "0.3", client.format_version
   end
 
+  def test_extension_version
+    assert_equal "f134ad8", client.extension_version
+  end
+
+  def test_duckdb_version
+    assert_equal "v1.4.1", client.duckdb_version
+  end
+
   def test_merge_adjacent_files
     create_events
     load_events
