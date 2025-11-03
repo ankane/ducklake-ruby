@@ -341,6 +341,7 @@ module DuckLake
         params << table_name
       end
 
+      # TODO return nil in 0.2.0
       symbolize_keys execute("CALL ducklake_flush_inlined_data(#{args.join(", ")})", params)
     end
 

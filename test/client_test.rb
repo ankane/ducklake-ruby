@@ -221,7 +221,8 @@ class ClientTest < Minitest::Test
     create_events(client)
     assert_equal 0, client.list_files("events").size
 
-    client.flush_inlined_data
+    # TODO return nil in 0.2.0
+    assert_empty client.flush_inlined_data
     assert_equal 1, client.list_files("events").size
   end
 
