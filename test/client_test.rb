@@ -95,11 +95,11 @@ class ClientTest < Minitest::Test
   end
 
   def test_extension_version
-    assert_equal "77f2512", client.extension_version
+    assert_equal "de813ff", client.extension_version
   end
 
   def test_duckdb_version
-    assert_equal "v1.4.2", client.duckdb_version
+    assert_equal "v1.4.3", client.duckdb_version
   end
 
   def test_merge_adjacent_files
