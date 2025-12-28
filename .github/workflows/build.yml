@@ -21,7 +21,7 @@ jobs:
           unzip -q -d libduckdb libduckdb-linux-amd64.zip
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.4
+          ruby-version: "4.0"
           bundler-cache: true
       - uses: ankane/setup-postgres@v1
         with:
