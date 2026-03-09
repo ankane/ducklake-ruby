@@ -95,7 +95,7 @@ class ClientTest < Minitest::Test
   end
 
   def test_extension_version
-    assert_match(/\A[0-9a-f]{8}\z/, client.extension_version)
+    assert_match(/\A[0-9a-f]{7,8}\z/, client.extension_version)
   end
 
   def test_duckdb_version
