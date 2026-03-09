@@ -91,15 +91,15 @@ class ClientTest < Minitest::Test
   end
 
   def test_format_version
-    assert_equal "0.4", client.format_version
+    assert_match(/\A\d+\.\d+\z/, client.format_version)
   end
 
   def test_extension_version
-    assert_equal "7ea15644", client.extension_version
+    assert_match(/\A[0-9a-f]{8}\z/, client.extension_version)
   end
 
   def test_duckdb_version
-    assert_equal "v1.5.0", client.duckdb_version
+    assert_match(/\Av\d+\.\d+\.\d+\z/, client.duckdb_version)
   end
 
   def test_merge_adjacent_files
@@ -221,7 +221,12 @@ class ClientTest < Minitest::Test
     create_events(client)
     assert_equal 0, client.list_files("events").size
 
-    expected = [{schema_name: "main", table_name: "events", rows_flushed: 3}]
+    expected =
+      if client.duckdb_version[1..].to_f >= 1.5
+        [{schema_name: "main", table_name: "events", rows_flushed: 3}]
+      else
+        []
+      end
     assert_equal expected, client.flush_inlined_data
     assert_equal 1, client.list_files("events").size
   end
