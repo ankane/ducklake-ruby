@@ -91,15 +91,15 @@ class ClientTest < Minitest::Test
   end
 
   def test_format_version
-    assert_equal "0.3", client.format_version
+    assert_equal "0.4", client.format_version
   end
 
   def test_extension_version
-    assert_equal "3f1b372", client.extension_version
+    assert_equal "7ea15644", client.extension_version
   end
 
   def test_duckdb_version
-    assert_equal "v1.4.4", client.duckdb_version
+    assert_equal "v1.5.0", client.duckdb_version
   end
 
   def test_merge_adjacent_files
@@ -221,8 +221,8 @@ class ClientTest < Minitest::Test
     create_events(client)
     assert_equal 0, client.list_files("events").size
 
-    # TODO return nil in 0.2.0
-    assert_empty client.flush_inlined_data
+    expected = [{schema_name: "main", table_name: "events", rows_flushed: 3}]
+    assert_equal expected, client.flush_inlined_data
     assert_equal 1, client.list_files("events").size
   end
 
@@ -327,7 +327,7 @@ class ClientTest < Minitest::Test
     error = assert_raises(DuckLake::CatalogError) do
       client.sql("INSERT INTO events SELECT * FROM pg.postgres_events")
     end
-    assert_match "Table with name postgres_events does not exist!", error.message
+    assert_match "does not exist", error.message
   end
 
   def test_attach_unsupported_type

@@ -64,7 +64,7 @@ module DuckLake
       attach_options[:encrypted] = 1 if encrypted
       attach_options[:snapshot_version] = snapshot_version if !snapshot_version.nil?
       attach_options[:snapshot_time] = snapshot_time if !snapshot_time.nil?
-      attach_options[:data_inlining_row_limit] = data_inlining_row_limit if data_inlining_row_limit > 0
+      attach_options[:data_inlining_row_limit] = data_inlining_row_limit
       attach_options[:create_if_not_exists] = false unless create_if_not_exists
       attach_options[:migrate_if_required] = false unless migrate_if_required
       attach_options[:override_data_path] = true if override_storage_url

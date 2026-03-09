@@ -1,3 +1,7 @@
+## 0.1.4 (unreleased)
+
+- Added support for DuckDB 1.5
+
 ## 0.1.3 (2025-09-23)
 
 - Added `current_snapshot` and `last_committed_snapshot` methods
