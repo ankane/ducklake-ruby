@@ -13,8 +13,6 @@ DuckLake::Client.new(
 
 [Learn more](https://duckdb.org/2025/05/27/ducklake.html)
 
-Note: DuckLake is [not considered production-ready](https://ducklake.select/faq#is-ducklake-production-ready) at the moment
-
 [![Build Status](https://github.com/ankane/ducklake-ruby/actions/workflows/build.yml/badge.svg)](https://github.com/ankane/ducklake-ruby/actions)
 
 ## Installation
