@@ -84,7 +84,12 @@ module DuckLake
         dbpath = File.join(@tmpdir, "memory.duckdb")
         DuckDB::Database.open(dbpath) { }
 
-        @db = DuckDB::Database.open(dbpath, config)
+        @db =
+          if Gem::Version.new(DuckDB::VERSION) >= Gem::Version.new("1.5.2")
+            DuckDB::Database.open(dbpath, config: config)
+          else
+            DuckDB::Database.open(dbpath, config)
+          end
       else
         @db = DuckDB::Database.open
       end

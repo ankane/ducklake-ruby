@@ -1,3 +1,7 @@
+## 0.1.5 (unreleased)
+
+- Fixed deprecation warning with `duckdb` gem
+
 ## 0.1.4 (2026-03-09)
 
 - Added support for DuckDB 1.5
