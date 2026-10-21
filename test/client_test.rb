@@ -95,7 +95,7 @@ class ClientTest < Minitest::Test
   end
 
   def test_extension_version
-    assert_match(/\A[0-9a-f]{7,8}\z/, client.extension_version)
+    assert_match(/\A[0-9a-f]{7,10}\z/, client.extension_version)
   end
 
   def test_duckdb_version
@@ -162,8 +162,12 @@ class ClientTest < Minitest::Test
   end
 
   def test_checkpoint
-    assert_raises(DuckLake::BinderError) do
-      client.checkpoint
+    if client.duckdb_version[1..].to_i >= 2
+      assert_nil client.checkpoint
+    else
+      assert_raises(DuckLake::BinderError) do
+        client.checkpoint
+      end
     end
   end
 
