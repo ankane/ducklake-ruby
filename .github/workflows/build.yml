@@ -27,8 +27,8 @@ jobs:
         if: steps.cache-libduckdb.outputs.cache-hit != 'true'
         run: |
           cd ~
-          wget -q https://github.com/duckdb/duckdb/releases/download/v$DUCKDB_VERSION/${{ startsWith(matrix.duckdb, '2') && 'duckdb-shared-libs-linux-arm64.tar.gz' || 'libduckdb-linux-amd64.zip' }}
-          ${{ startsWith(matrix.duckdb, '2') && 'tar xzf duckdb-shared-libs-linux-arm64.tar.gz' || 'unzip -q -d libduckdb libduckdb-linux-amd64.zip' }}
+          wget -q https://github.com/duckdb/duckdb/releases/download/v$DUCKDB_VERSION/${{ startsWith(matrix.duckdb, '2') && 'duckdb-shared-libs-linux-amd64.tar.gz' || 'libduckdb-linux-amd64.zip' }}
+          ${{ startsWith(matrix.duckdb, '2') && 'tar xzf duckdb-shared-libs-linux-amd64.tar.gz' || 'unzip -q -d libduckdb libduckdb-linux-amd64.zip' }}
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
